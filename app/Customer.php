@@ -11,7 +11,8 @@ class Customer extends Model
 
     protected $dates = ['deleted_at'];
     protected $hidden = array('deleted_at');
-
+    protected $appends = ['full_name'];
+    
     protected $fillable = [
         'name',
         'last_name',
@@ -23,8 +24,13 @@ class Customer extends Model
         'status'
       ];
   
-      public function quote()
+    public function quote()
     {
         return $this->belongsTo(Quote::class,'id','customer_id');
     }
+
+    public function getFullNameAttribute() {
+        return ucwords("{$this->name} {$this->last_name}");
+    }
+
 }

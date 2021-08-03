@@ -22,6 +22,9 @@ class QuoteController extends Controller
         DB::beginTransaction();
             
         try {
+            if(!$request->status){
+                $request->merge(['status' => 'Contacto']);
+            }
             $quote = Quote::create($request->all());
     
             DB::commit();
