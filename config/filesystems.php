@@ -55,10 +55,10 @@ return [
             'visibility' => 'public',
         ],
 
-        'notices' => [
+        'movies' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/archivos/avisos'),
-            'url' => env('APP_URL').'/storage/archivos/avisos',
+            'root' => storage_path('app/public/archivos/movies'),
+            'url' => env('APP_URL').'/storage/archivos/movies',
             'visibility' => 'public',
         ],
 

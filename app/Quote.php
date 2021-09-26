@@ -30,6 +30,6 @@ class Quote extends Model
       ];
 
       public function logs(){
-          return $this->hasMany('App\Logs', 'quote_id');
+          return $this->hasMany('App\Logs', 'quote_id', 'id');
       }
 }

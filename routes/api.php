@@ -25,20 +25,25 @@ Route::group([
         Route::get('getAll', 'CustomerController@getAll');
         Route::get('/check-mailchimp','CustomerController@getCustomersNotInListMailChimp');
     });
-    Route::resource('customers', CustomerController::class);
-    Route::resource('quotes', QuoteController::class);
-    // Route::resource('logs', LogsController::class);
-    Route::prefix('logs')->group(function () {
-        Route::get('/{id}', 'LogController@getBitacoraByQuote');
+    Route::prefix('movies')->group(function () {
+        Route::post('{id}', 'MovieController@update');
     });
+    Route::resource('movies', MovieController::class);
+    Route::prefix('schedules')->group(function () {
+        Route::post('{id}', 'ScheduleController@update');
+    });
+    Route::resource('schedules', ScheduleController::class);
+
+    Route::prefix('movies-schedules')->group(function () {
+    });
+    Route::resource('movies-schedules', MovieScheduleController::class);
 });
 
 Route::group([
     'prefix' => 'auth'
 ], function () {
-    Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signUp');
-
+    Route::post('login', 'AuthController@login');
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
@@ -49,4 +54,9 @@ Route::group([
         Route::delete('roles/{key}', 'UserController@deleteRole');
         Route::get('logout', 'AuthController@logout');
    });
+});
+
+Route::group([ 'prefix' => 'auth','middleware' => ['cors']], function () {
+    //Rutas a las que se permitirá acceso
+    Route::post('login', 'AuthController@login');
 });
